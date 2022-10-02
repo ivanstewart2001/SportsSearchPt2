@@ -2,7 +2,6 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native"
 import { useNavigation } from '@react-navigation/native'
 import { MainScreenProp } from "../../types/screens/types"
 import { useState } from "react"
-import LoadingOverlay from "../../components/UI/LoadingOverlay"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../../store/store"
 
