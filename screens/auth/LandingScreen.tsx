@@ -1,18 +1,46 @@
-import { Button, Text, View } from "react-native"
+import { Button, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from '@react-navigation/native'
-import { AuthScreenProp } from "../../types/screens/types"
+import { AuthScreenProp } from "../../types/screens/types";
 
 function LandingScreen() {
     const navigation = useNavigation<AuthScreenProp>()
 
+    function navigateToLogin() {
+        navigation.navigate('Login')
+    }
+
+    function navigateToSignUp() {
+        navigation.navigate('SignUp')
+    }
+
     return (
-        <View>
-            <Text>Sports Search Part 2</Text>
-            <Button title='Login' onPress={() => navigation.navigate('Login')} />
-            <Button title='Sign Up' onPress={() => navigation.navigate('SignUp')} />
-            <Button title='Forgot Password' onPress={() => navigation.navigate('ForgotPassword')} />
+        <View style={styles.container}>
+            <Text style={styles.title}>Sports Search</Text>
+            <Text style={styles.subTitle}>News | Stats | Reports | Schedules | Comparisons</Text>
+
+            <View style={styles.buttonContainer}>
+                <Button title="Login" onPress={navigateToLogin} />
+                <Button title="Sign Up" onPress={navigateToSignUp} />
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    title: {
+        fontSize: 36
+    },
+    subTitle: {
+        fontSize: 16
+    },
+    buttonContainer: {
+        flexDirection: 'row'
+    }
+})
 
 export default LandingScreen

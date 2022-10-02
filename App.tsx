@@ -24,6 +24,11 @@ import ForgotPasswordScreen from './screens/auth/ForgotPasswordScreen';
 // Interfaces / Types
 import { TabBarIconProps } from './types/root/App';
 
+// Redux
+import { Provider } from 'react-redux';
+import { store } from './store/store'
+import SignOutComponent from './screens/auth/SignOutComponent';
+
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const Drawer = createDrawerNavigator<DrawerParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -49,7 +54,13 @@ function FavoriteTabBarIcon({ color, size }:TabBarIconProps) {
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={() => ({
+        headerRight: () => (
+          <SignOutComponent />
+        )
+      })}
+    >
       <Drawer.Screen 
         name='basketballBottomTabs'
         component={basketballBottomTabs}
@@ -165,57 +176,60 @@ export default function App() {
   return (
     <>
       <StatusBar style='dark' />
-      <NavigationContainer>
-        <SafeAreaView style={styles.container}>
-          <Stack.Navigator>
-            <Stack.Screen 
-              name='Landing'
-              component={LandingScreen}
-              options={{
-                headerShown: false
-              }}
-            />
+      <Provider store={store}>
+        <NavigationContainer>
+          <SafeAreaView style={styles.container}>
+            <Stack.Navigator>
+              <Stack.Screen 
+                name='Landing'
+                component={LandingScreen}
+                options={{
+                  headerShown: false
+                }}
+              />
 
-            <Stack.Screen 
-              name='Login'
-              component={LoginScreen}
-              options={{
-                headerShown: true,
-                headerBackTitle: 'Back',
-                headerTitle: ''
-              }} 
-            />
+              <Stack.Screen 
+                name='Login'
+                component={LoginScreen}
+                options={{
+                  headerShown: true,
+                  headerBackTitle: 'Back',
+                  headerTitle: ''
+                }} 
+              />
 
-            <Stack.Screen 
-              name='SignUp'
-              component={SignUpScreen}
-              options={{
-                headerShown: true,
-                headerBackTitle: 'Back',
-                headerTitle: ''
-              }} 
-            />
+              <Stack.Screen 
+                name='SignUp'
+                component={SignUpScreen}
+                options={{
+                  headerShown: true,
+                  headerBackTitle: 'Back',
+                  headerTitle: ''
+                }} 
+              />
 
-            <Stack.Screen 
-              name='ForgotPassword'
-              component={ForgotPasswordScreen}
-              options={{
-                headerShown: true,
-                headerBackTitle: 'Back',
-                headerTitle: ''
-              }} 
-            />
+              <Stack.Screen 
+                name='ForgotPassword'
+                component={ForgotPasswordScreen}
+                options={{
+                  headerShown: true,
+                  headerBackTitle: 'Back',
+                  headerTitle: ''
+                }} 
+              />
 
-            <Stack.Screen 
-              name='Main'
-              component={DrawerNavigator}
-              options={{
-                headerShown: false
-              }} 
-            />
-          </Stack.Navigator>
-        </SafeAreaView>
-      </NavigationContainer>
+              <Stack.Screen 
+                name='Main'
+                component={DrawerNavigator}
+                options={{
+                  headerShown: false
+                }} 
+              />
+            </Stack.Navigator>
+          </SafeAreaView>
+        </NavigationContainer>
+      </Provider>
+
     </>
   );
 }
